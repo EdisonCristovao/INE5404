@@ -1,0 +1,4 @@
+Quanto as exceçoes, é necessario criar uma classe para cada exceção, ou
+pode cria uma classe mais geral, para cria um conjunto de exceçoes?
+
+Como subir o projeto no agil?

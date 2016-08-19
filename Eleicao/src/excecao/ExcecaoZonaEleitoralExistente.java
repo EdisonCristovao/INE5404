@@ -6,6 +6,8 @@ public class ExcecaoZonaEleitoralExistente extends Exception {
 		
 	}
 	
-	
+	public ExcecaoZonaEleitoralExistente(String msg){
+		super(msg);
+	}
 
 }

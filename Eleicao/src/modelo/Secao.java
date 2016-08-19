@@ -3,6 +3,7 @@ package modelo;
 import java.util.ArrayList;
 
 public class Secao {
+	
 	private int numero;
 	private Zona zona;
 	private ArrayList<Eleitor> eleitores;
@@ -13,7 +14,7 @@ public class Secao {
 		this.eleitores = new ArrayList <Eleitor>();
 	}
 	public void cadastroEleitor(Eleitor eleitor){
-		if (this.eleitores.contains(eleitor))
+		if (!this.eleitores.contains(eleitor))
 			this.eleitores.add(eleitor);
 	}
 	
