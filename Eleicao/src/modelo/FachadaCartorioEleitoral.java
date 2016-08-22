@@ -10,12 +10,17 @@ public class FachadaCartorioEleitoral {
 	private ArrayList<Zona> zonas;
 	private ArrayList<Eleitor> eleitores;
 	private ArrayList<Secao> secoes;
+	private ArrayList<Partido> partidos;
+	private ArrayList<Candidato> candidatos;
 	
 	public FachadaCartorioEleitoral(){
 		this.zonas = new ArrayList<Zona>();
 		this.eleitores = new ArrayList<Eleitor>();
 		this.secoes = new ArrayList<Secao>();
+		this.partidos = new ArrayList<Partido>();
+		this.candidatos = new ArrayList<Candidato>();
 	}
+	
 	public void cadastraZonaEleitoral(int numeroZonaEleitoral, String localizacao) throws ExcecaoZonaEleitoralExistente {
 		Zona zona = getZona(numeroZonaEleitoral);
 		if(zona == null){
@@ -102,4 +107,53 @@ public class FachadaCartorioEleitoral {
 	return null;
 	}
 	
+	public void cadastroPartido(String sigla, String nomePartido) throws ExcecaoZonaEleitoralExistente{
+		Partido partido = getPartido(sigla);
+		if(partido == null){
+			partido = new Partido(sigla, nomePartido);
+			partidos.add(partido);
+		}else{
+			throw new ExcecaoZonaEleitoralExistente();
+		}
+	}
+
+	private Partido getPartido(String sigla) {
+		Partido p1 = new Partido(sigla, "");
+		for (int cont = 0; cont<partidos.size(); cont++){
+			Partido partido = this.partidos.get(cont);
+			if (partido.equals(p1)) 
+				return partido;
+		}
+		return null;
+	}
+
+	public int getNumDePartidos() {
+		return partidos.size();
+	}
+	
+	public void cadastroCandidato(Eleitor eleitor, Partido partido, String cargo) throws ExcecaoZonaEleitoralExistente{
+		Candidato candidato = getCandidato(eleitor);
+		if(candidato == null){
+			candidato = new Candidato(eleitor, partido, cargo);
+			this.candidatos.add(candidato);
+			if(cargo.equalsIgnoreCase("prefeito")){
+				partido.cadastraVereador(candidato);
+			}else{
+				partido.setCandidatoPrefeito(candidato);
+			}
+		}else{
+			throw new ExcecaoZonaEleitoralExistente("Candidato existente");
+		}
+			
+	}
+	
+	public Candidato getCandidato(Eleitor eleitor){
+		Candidato c1 = new Candidato(eleitor);
+		for(int cont = 0; cont < candidatos.size(); cont ++){
+			Candidato candidato = candidatos.get(cont);
+			if(candidato.equals(c1))
+				return candidato;
+		}
+		return null;
+	}
 }

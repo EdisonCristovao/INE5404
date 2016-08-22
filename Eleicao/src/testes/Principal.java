@@ -19,9 +19,9 @@ public class Principal {
 		// System.out.println("Numero de zonas eleitorais é "+
 		// cartorio.getNumeroDeZonas());
 
-		cartorio.cadastroSecao(10, cartorio.getZona(101));
+		//cartorio.cadastroSecao(10, cartorio.getZona(101));
 		System.out.println("numero de secoes é :" + cartorio.getNumeroDeSecoes());
-		cartorio.cadastroSecao(10, cartorio.getZona(101));
+		//cartorio.cadastroSecao(10, cartorio.getZona(101));
 		System.out.println("numero de secoes é :" + cartorio.getNumeroDeSecoes());
 	}
 
