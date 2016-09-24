@@ -1,0 +1,100 @@
+package modelo;
+
+import java.util.ArrayList;
+
+import excecao.EleitorNaoExisteNessaSecao;
+import interfaces.EstadoUrna;
+import modelo.estados.Cadastrada;
+
+public class Urna{
+	
+	private int numero;
+	private Secao secao;
+	private ArrayList<Eleitor> eleitoresVotaram;
+	private int numVotosNulos;	
+	private EstadoUrna estado;
+	
+	public Urna(int numero, Secao secao){
+		this.numero = numero;
+		this.secao = secao;
+		eleitoresVotaram = new ArrayList<Eleitor>();
+		this.numVotosNulos = 0;
+		this.estado =  new Cadastrada(this);
+	}
+	
+	
+	public EstadoUrna getEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(EstadoUrna estado) {
+		this.estado = estado;
+	}
+
+
+	public ArrayList<Eleitor> getEleitoresVotaram() {
+		return eleitoresVotaram;
+	}
+
+
+	public void setEleitoresVotaram(ArrayList<Eleitor> eleitoresVotaram) {
+		this.eleitoresVotaram = eleitoresVotaram;
+	}
+
+
+	public int getNumVotosNulos() {
+		return numVotosNulos;
+	}
+
+
+	public void setNumVotosNulos(int numVotosNulos) {
+		this.numVotosNulos = numVotosNulos;
+	}
+
+
+	public int getNumero() {
+		return numero;
+	}
+
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+
+	public Secao getSecao() {
+		return secao;
+	}
+
+
+	public void setSecao(Secao secao) {
+		this.secao = secao;
+	}
+	
+	public void realizarVotoNulo(Eleitor eleitor){
+		if (secao.getEleitores().contains(eleitor)){
+			this.numVotosNulos++;
+			eleitoresVotaram.add(eleitor);
+		}
+	}
+	
+	public void votoPrefeito(CandidatoPrefeito candidatoPrefeito){
+		candidatoPrefeito.recebeVoto();
+	}
+	public void votoVereador(CandidatoVereador candidatoVereador){
+		candidatoVereador.recebeVoto();
+	}
+	
+	public void realizarVoto(Eleitor eleitor, CandidatoPrefeito candidatoPrefeito, CandidatoVereador candidatoVereador) throws EleitorNaoExisteNessaSecao{
+		if (getSecao().getEleitores().contains(eleitor)){
+			votoPrefeito(candidatoPrefeito);
+			votoVereador(candidatoVereador);
+			getEleitoresVotaram().add(eleitor);
+		}else{
+			throw new EleitorNaoExisteNessaSecao("EleitorNaoExisteNessaSecao");
+		}
+			
+	}
+
+}

@@ -1,19 +1,23 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Partido {
+public class Partido implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String siglaPartido;
 	private String nomePartido;
-	private ArrayList<Candidato> candidatosVereadores;
-	private Candidato candidatoPrefeito;
+	private ArrayList<CandidatoVereador> candidatosVereadores;
+	private CandidatoPrefeito candidatoPrefeito;
 
 	public Partido(String siglaPartido, String nomePartido){
 		this.siglaPartido=siglaPartido;
 		this.nomePartido=nomePartido;
-		this.candidatosVereadores = new ArrayList<Candidato>();
-		this.candidatoPrefeito = new Candidato(null);;
+		this.candidatosVereadores = new ArrayList<CandidatoVereador>();
 	}
 
 	@Override
@@ -57,23 +61,24 @@ public class Partido {
 		this.nomePartido = nomePartido;
 	}
 
-	public ArrayList<Candidato> getCandidatosVereadores() {
+	public ArrayList<CandidatoVereador> getCandidatosVereadores() {
 		return candidatosVereadores;
 	}
 
-	public void setCandidatosVereadores(ArrayList<Candidato> candidatosVereadores) {
+	public void setCandidatosVereadores(ArrayList<CandidatoVereador> candidatosVereadores) {
 		this.candidatosVereadores = candidatosVereadores;
 	}
 
-	public Candidato getCandidatoPrefeito() {
+	public CandidatoPrefeito getCandidatoPrefeito() {
 		return candidatoPrefeito;
 	}
 
-	public void setCandidatoPrefeito(Candidato candidatoPrefeito) {
+	public void setCandidatoPrefeito(CandidatoPrefeito candidatoPrefeito) {
 		this.candidatoPrefeito = candidatoPrefeito;
 	}
 	
-	public void cadastraVereador(Candidato candidato){
-		this.candidatosVereadores.add(candidato);
+	public void cadastraVereador(CandidatoVereador candidato){
+		if(!this.candidatosVereadores.contains(candidato))
+			this.candidatosVereadores.add(candidato);
 	}
 }

@@ -1,17 +1,24 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Secao {
+import interfaces.InterfaceSecao;
+
+public class Secao implements InterfaceSecao, Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int numero;
-	private Zona zona;
 	private ArrayList<Eleitor> eleitores;
+	private Zona zona;
 
 	public Secao (int numero, Zona zona){
 		this.numero= numero;
-		this.zona= zona;
 		this.eleitores = new ArrayList <Eleitor>();
+		this.zona = zona;
 	}
 	public void cadastroEleitor(Eleitor eleitor){
 		if (!this.eleitores.contains(eleitor))
@@ -20,12 +27,6 @@ public class Secao {
 	
 	public int getNumero(){
 		return this.numero;
-	}
-	public Zona getZona() {
-		return zona;
-	}
-	public void setZona(Zona zona) {
-		this.zona = zona;
 	}
 	public ArrayList<Eleitor> getEleitores() {
 		return eleitores;
@@ -36,8 +37,10 @@ public class Secao {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	
-	
+	@Override
+	public Zona getZona() {
+		return this.zona;
+	}
 	
 	
 }

@@ -1,32 +1,41 @@
 package modelo;
 
-public class Eleitor {
+import java.io.Serializable;
 
+public class Eleitor implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int cpf;
 	private  String nome;
 	private int titulo;
-	private Zona zona;
-	private Secao secao;
 	private String endereco;
     private String municipio;
-    
+    private boolean voto;
+     	
     public Eleitor(int cpf, String nome, int titulo){
     	this.cpf= cpf;
     	this.nome = nome;
     	this.titulo = titulo;
-    	
+    	this.voto = false;
     }
-    
-
-	public Secao getSecao() {
-		return secao;
+	public boolean getVoto() {
+		return voto;
 	}
-
-
-	public void setSecao(Secao secao) {
-		this.secao = secao;
+	public void setVoto(boolean voto) {
+		this.voto = voto;
 	}
-
+	public void setCpf(int cpf) {
+		this.cpf = cpf;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public void setTitulo(int titulo) {
+		this.titulo = titulo;
+	}
 	public String getEndereco() {
 		return endereco;
 	}

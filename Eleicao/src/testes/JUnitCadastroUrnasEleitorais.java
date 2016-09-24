@@ -2,14 +2,16 @@ package testes;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import excecao.ExcecaoZonaEleitoralExistente;
 import modelo.FachadaCartorioEleitoral;
+import modelo.Zona;
 
-public class JUnitCadastroZonaFachadaCartorioEleitoral {
+public class JUnitCadastroUrnasEleitorais {
 
 	FachadaCartorioEleitoral cartorio;
 

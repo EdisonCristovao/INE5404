@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import excecao.ExcecaoZonaEleitoralExistente;
+import excecao.ExcecaoEleitorExistente;
 import modelo.FachadaCartorioEleitoral;
 
 public class JUnitCadastroEleitorFachadaCartorioEleitoral {
@@ -15,43 +15,29 @@ public class JUnitCadastroEleitorFachadaCartorioEleitoral {
 	public void setUp() throws Exception {
 		cartorio = new FachadaCartorioEleitoral();
 		cartorio.cadastraZonaEleitoral(101, "sao jose");
-		cartorio.cadastroSecao(10, cartorio.getZona(101));
+		cartorio.cadastraZonaEleitoral(102, "jose");
+		cartorio.cadastraSecao(101);
+		cartorio.cadastraSecao(102);
 	}
 
 	@Test
-	public void testCadastraEleitor() {
-		try {
-			cartorio.cadastraEleitor(888, "ele mesmo", 82821, cartorio.getSecaoPorNumero(10), "teste", "poowww");
-			assertEquals(1, cartorio.getNumeroDeEleitores());
-		} catch (ExcecaoZonaEleitoralExistente e) {
-			fail();
-		}
+	public void testCadastraEleitor() throws ExcecaoEleitorExistente {
+			cartorio.cadastraEleitor(888, "ele mesmo", 82821, cartorio.getSecao(101, 1), "teste", "poowww");
+			assertEquals(1, cartorio.getSecao(101, 1).getEleitores().size());
 
 	}
 	@Test
-	public void testCadastra2EleitorDiferentes() {
-		try {
-			cartorio.cadastraEleitor(888, "ele mesmo", 82821, cartorio.getSecaoPorNumero(10), "teste", "poowww");
-			cartorio.cadastraEleitor(884, "ela mesmo", 123123, cartorio.getSecaoPorNumero(10), "shajd", "Àwwww");
-			assertEquals(2, cartorio.getNumeroDeEleitores());
-		} catch (ExcecaoZonaEleitoralExistente e) {
-			fail();
-		}
+	public void testCadastra2EleitorDiferentes() throws ExcecaoEleitorExistente {
+			cartorio.cadastraEleitor(888, "ele mesmo", 82821, cartorio.getSecao(101, 1), "teste", "poowww");
+			cartorio.cadastraEleitor(884, "ela mesmo", 123123, cartorio.getSecao(101, 1), "shajd", "Àwwww");
+			assertEquals(2, cartorio.getSecao(101, 1).getEleitores().size());
 
 	}
-	@Test
-	public void testCadastra2EleitorApenasCpfIgual() {
-		try {
-			cartorio.cadastraEleitor(888, "ele mesmo", 82821, cartorio.getSecaoPorNumero(10), "teste", "poowww");
-			cartorio.cadastraEleitor(888, "ela mesmo", 123123, cartorio.getSecaoPorNumero(10), "shajd", "Àwwww");
-			fail();
-		} catch (ExcecaoZonaEleitoralExistente e) {
-			assertEquals(1, cartorio.getNumeroDeEleitores());
-		}
+	@Test (expected= ExcecaoEleitorExistente.class)
+	public void testCadastra2EleitorApenasCpfIgual() throws ExcecaoEleitorExistente {
+			cartorio.cadastraEleitor(888, "ele mesmo", 82821, cartorio.getSecao(101, 1), "teste", "poowww");
+			cartorio.cadastraEleitor(888, "ela mesmo", 123123, cartorio.getSecao(101, 1), "shajd", "Àwwww");
+			assertEquals(1, cartorio.getSecao(101, 1).getEleitores().size());
 
 	}
-	
-	
-	
-
 }
